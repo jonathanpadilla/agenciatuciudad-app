@@ -1,1 +1,68 @@
 /* Empty. Add your own CSS if you like */
+.view-ingreso{
+	padding-top: 50px;
+}
+
+div.lista-descripcion p{
+    white-space: normal;
+    height:2.9em;
+}
+
+span.ubicacion-leyenda{
+    color: #888;
+    font-size: 0.8em;
+}
+
+div.leyenda-contenido p{
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 18px;
+}
+
+div.size-1 p{
+    font-size: 18px;
+    line-height: normal;
+}
+/********/
+
+.bar-red{
+    background-color: #B71C1C;
+    color:#fff;
+}
+
+/* Menu
+==================================*/
+.menu .bar.bar-header.expanded {
+    transition: all .5s ease-in-out;
+}
+
+.menu-open .bar.bar-header.expanded {
+    background-color: #222;
+}
+
+.menu h2 {
+    bottom: 0;
+    font-size: 18px;
+    left: 16px;
+    position: absolute;
+    color:#fff;
+}
+
+.menu .avatar {
+    height: 88px;
+    width: 88px;
+}
+
+.menu.menu-left * {
+    font-weight: bold;
+}
+
+.menu-open .ion-navicon {
+    transform: rotate(-360deg);
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.menu-open .ion-navicon:before {
+    content: "\f2ca";
+}
