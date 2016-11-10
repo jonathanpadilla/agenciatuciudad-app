@@ -2,7 +2,7 @@
 
   var app = angular.module('starter', ['ionic', 'starter.routing', 'starter.controller']);
 
-  app.run(function($ionicPlatform) {
+  app.run(function($ionicPlatform, $rootScope, $state) {
 
     $ionicPlatform.ready(function() {
 
@@ -18,6 +18,11 @@
       }
 
     });
+
+    // agregar nueva cotizacion
+    $rootScope.add_item_cotizacion = function(route) {
+      $state.go(route);
+    }
 
   })
 

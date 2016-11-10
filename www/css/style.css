@@ -29,7 +29,9 @@ div.size-1 p{
     background-color: #B71C1C;
     color:#fff;
 }
-
+.button.back-button{
+    color: #fff;
+}
 /* Menu
 ==================================*/
 .menu .bar.bar-header.expanded {

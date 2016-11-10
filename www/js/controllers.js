@@ -11,11 +11,16 @@
 		}
 	});
 
-	app.controller('InicioCtrl', function($scope, $ionicSideMenuDelegate){
+	app.controller('InicioCtrl', function(){
 		
-		$scope.toggleLeft = function() {
-		    $ionicSideMenuDelegate.toggleLeft();
-		};
+	});
+
+	app.controller('CotizarCtrl', function(){
+
+	});
+
+	app.controller('CotizarNuevoCtrl', function(){
+
 	});
 
 }());
