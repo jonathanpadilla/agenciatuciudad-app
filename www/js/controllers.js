@@ -1,12 +1,13 @@
 (function(){
 
-	var app = angular.module('starter.controller', []);
+	var app = angular.module('starter.controller', ['ngCordova']);
 
 	app.controller('IngresoCtrl', function($scope, $state)
 	{
 
 		$scope.login = function()
 		{
+			
 			$state.go('eventmenu.inicio');
 		}
 	});

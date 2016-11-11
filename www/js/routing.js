@@ -45,7 +45,7 @@
 		    	}
 		    });
 		    sp.state('eventmenu.cotizarNuevoLetrero', {
-		    	url: '/cotizar-nuevo-letrero',
+		    	url: '/cotizar/letrero',
 		    	cache: false,
 		    	views: {
 		    		'menuContent': {
@@ -53,12 +53,31 @@
 		    		}
 		    	}
 		    });
-		    sp.state('eventmenu.cotizarNuevoLetreroBacklight', {
-		    	url: '/cotizar-nuevo-letrero-caja',
+		    sp.state('eventmenu.cotizarNuevoLetreroBacklightCaja', {
+		    	url: '/cotizar/letrero/backlight/caja',
 		    	cache: false,
 		    	views: {
 		    		'menuContent': {
-		    			templateUrl: 'templates/cotizar/letreros/letrero_backlight.html'
+		    			templateUrl: 'templates/cotizar/letreros/letrero_backlight_caja.html'
+		    		}
+		    	}
+		    });
+		    sp.state('eventmenu.cotizarNuevoLetreroBacklightCajaLuz', {
+		    	url: '/cotizar/letrero/backlight/caja/luz',
+		    	cache: false,
+		    	views: {
+		    		'menuContent': {
+		    			templateUrl: 'templates/cotizar/letreros/letrero_backlight_caja_luz.html'
+		    		}
+		    	}
+		    });
+
+		    sp.state('eventmenu.finalizarCotizacion', {
+		    	url: '/cotizar/finalizar',
+		    	cache: false,
+		    	views: {
+		    		'menuContent': {
+		    			templateUrl: 'templates/cotizar/finalizar_cotizacion.html'
 		    		}
 		    	}
 		    });

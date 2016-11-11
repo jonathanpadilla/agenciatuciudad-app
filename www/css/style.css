@@ -1,4 +1,10 @@
 /* Empty. Add your own CSS if you like */
+.button-tuciudad{
+    background-color: #B71C1C;
+    color:#fff;
+    width:50%;
+}
+
 .view-ingreso{
 	padding-top: 50px;
 }
