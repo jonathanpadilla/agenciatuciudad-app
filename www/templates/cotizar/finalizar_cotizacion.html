@@ -14,17 +14,14 @@
 					  	</div>
 					  	<div class="item item-text-wrap">
 
-					  		<ul class="list">
-							    <li class="item">Letrero</li>
-							    <li class="item">Backlight</li>
-							    <li class="item">Con caja</li>
-							    <li class="item">Con Luz</li>
+					  		<ul class="list" >
+							    <li class="item" ng-repeat="item in informacion">{{ item.nombre }}</li>
 							</ul>
 
 					  	</div>
 					  	<div class="item item-divider">
-					    	<button class="button button-tuciudad">Enviar</button>
-					    	<button class="button button-tuciudad">Agregar otro</button>
+					    	<button class="button button-tuciudad" ng-click="finalizar(1)">Enviar</button>
+					    	<button class="button button-tuciudad" ng-click="finalizar(2)">Agregar otro</button>
 					  	</div>
 					</div>
 		  		</div>

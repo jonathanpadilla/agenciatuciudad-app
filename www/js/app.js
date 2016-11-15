@@ -27,10 +27,26 @@
         // nueva cotizacion
         if(nuevo)
         {
-          if(localStorage.getItem("item_activo") === null)
+          if(localStorage.getItem("item_activo") == 0)
           {
-            window.localStorage.setItem( 'item_activo', 1 );
+            item_producto.getLast().then(
+              function(rs){
+                if(rs.rows.length)
+                {
+                  var last_c = parseInt(rs.rows.item(0).pedido);
+                  var new_c = last_c + 1;
+                  window.localStorage.setItem( 'item_activo', new_c );
+                  // console.log(rs.rows.item(0).pedido);
+                }else{
+                  window.localStorage.setItem( 'item_activo', 1 );
+                  console.log('Sin registros');
+                }
+                
+              }, function(err){
+                console.log(err);
+              });
           }else{
+            console.log('sumar 1 a item activo');
             var last_c = parseInt(localStorage.getItem("item_activo"));
             var new_c = last_c + 1;
             window.localStorage.setItem( 'item_activo', new_c );
@@ -50,7 +66,7 @@
                   if(rs.rowsAffected == 1)
                   {
                     $ionicLoading.hide();
-                    $state.go(route);
+                    $state.go(route, {}, {location: "replace", reload: true});
                   }else{
                     $ionicLoading.hide();
                     console.log('Item no actualizado');
@@ -69,7 +85,7 @@
                   if(rs.rowsAffected == 1)
                   {
                     $ionicLoading.hide();
-                    $state.go(route);
+                    $state.go(route, {}, {location: "replace", reload: true});
                   }else{
                     $ionicLoading.hide();
                     console.log('Item no guardado');
@@ -100,6 +116,7 @@
                 +"producto INTEGER, "
                 +"nivel INTEGER, "
                 +"item INTEGER, "
+                +"finalizado INTEGER, "
                 +"comentario TEXT)";
 
       // var query = "DROP TABLE item_producto";

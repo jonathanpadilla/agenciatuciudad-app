@@ -77,9 +77,13 @@
 		    	cache: false,
 		    	views: {
 		    		'menuContent': {
-		    			templateUrl: 'templates/cotizar/finalizar_cotizacion.html'
+		    			templateUrl: 'templates/cotizar/finalizar_cotizacion.html',
+		    			controller: 'FinalizarCotizacionCtrl'
 		    		}
-		    	}
+		    	},
+		  //   	params: {
+				//     id: null
+				// }
 		    });
 		    // FIN COTIZAR
 		    // MENU LATERAL IZQUIERDO
