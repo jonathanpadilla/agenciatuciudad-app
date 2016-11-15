@@ -6,6 +6,27 @@
     border: 1px solid #9E9E9E;
 }
 
+.bar-tuciudad{
+    background-color: #B71C1C;
+    color:#fff;
+}
+
+.bar-tuciudad a{
+    color:#fff;
+}
+
+.bar-tuciudad{
+    background-color: #B71C1C;
+}
+
+.bar-tuciudad h1, .bar-tuciudad button{
+    color: #fff !important;
+}
+
+.list-productos .item p{
+     white-space: normal !important; 
+}
+
 .button.button-positive:hover{
     color: #000;
     border: 1px solid #000;

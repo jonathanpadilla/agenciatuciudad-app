@@ -1,0 +1,69 @@
+<ion-view view-title="Enviar cotización">
+	<ion-content>
+		<div class="wrapper">
+		  	<div class="row">
+		  		<div class="col">
+					
+		  			<div class="list list-productos">
+		  				<div class="item">
+						    productos
+						</div>
+					    <div class="item item-thumbnail-left">
+					      <img src="img/placeholder.png">
+					      <h2>Letrero</h2>
+					      <p>Backlight, Caja, Luz</p>
+					    </div>
+					    <div class="item item-thumbnail-left">
+					      <img src="img/placeholder.png">
+					      <h2>Letrero</h2>
+					      <p>Backlight, Caja, Luz</p>
+					    </div>
+					    <div class="item item-thumbnail-left">
+					      <img src="img/placeholder.png">
+					      <h2>Página web</h2>
+					      <p>Responsiva, Administrable, 5 Tópicos</p>
+					    </div>
+					    <div class="item">
+					      	<strong>Valor aproximado</strong>
+					      	<span class="item-note">
+					      		<strong>$100.000</strong>
+					    	</span>
+					    </div>
+					    
+					</div>
+
+		  		</div>
+		  	</div>
+		</div>
+
+    </ion-content>
+    <div class="bar bar-footer bar-tuciudad">
+		  <a class="title" ng-click="modal.show()">Enviar</a>
+		</div>
+</ion-view>
+
+<script id="formulario" type="text/ng-template">
+  <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-tuciudad">
+          <h1 class="title">Contacto cliente</h1>
+          <button class="button button-clear" ng-click="modal.hide()">Cancelar</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+          <div class="list">
+            <label class="item item-input">
+		    	<input type="text" placeholder="Nombre">
+		  	</label>
+		  	<label class="item item-input">
+		    	<input type="text" placeholder="Correo">
+		  	</label>
+		  	<label class="item item-input">
+		    	<input type="number" placeholder="telefono">
+		  	</label>
+		  	<label class="item item-input">
+		    	<textarea placeholder="Observación" rows="10"></textarea>
+		  	</label>
+            <button class="button button-full button-tuciudad">Enviar</button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+</script>

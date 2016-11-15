@@ -1,22 +1,8 @@
 (function(){
 
 	var path = 'http://intranet.agenciatuciudad.com/app_dev.php/mobil/';
-	var app = angular.module('starter.controller', ['ngCordova']);
+	var app = angular.module('starter.cotizar_controller', ['ngCordova']);
 
-	app.controller('IngresoCtrl', function($scope, $state)
-	{
-
-		$scope.login = function()
-		{
-			window.localStorage.setItem( 'item_activo', 0 );
-			$state.go('eventmenu.inicio');
-		}
-	});
-
-	app.controller('InicioCtrl', function(){
-	});
-
-	// cotizar
 	app.controller('CotizarCtrl', function($ionicHistory, $scope, item_producto){
 
 		item_producto.getLength().then(
@@ -28,16 +14,48 @@
 				console.log(err);
 			});
 
-		$scope.limpiar = function()
-		{
-			item_producto.clear();
-		}
-
 		$ionicHistory.clearHistory();
 	});
 
 	app.controller('CotizarNuevoCtrl', function(){
 
+	});
+
+	app.controller('EnviarProductosCtrl', function($scope, $http, $ionicLoading, $ionicPopup, $ionicModal){
+		// $ionicLoading.show({
+  //         	template: '<p>Cargando...</p><ion-spinner></ion-spinner>'
+  //       });
+
+		// var alertPopup = $ionicPopup.alert({
+  //           title: 'Error interno, intente nuevamente.',
+  //       });
+  //       $ionicLoading.hide();
+
+  		$ionicModal.fromTemplateUrl('formulario', {
+		    scope: $scope,
+		    animation: 'slide-in-up'
+		}).then(function(modal) {
+		    $scope.modal = modal;
+		});
+
+		// $scope.openModal = function() {
+		//     $scope.modal.show();
+		//   };
+		//   $scope.closeModal = function() {
+		//     $scope.modal.hide();
+		//   };
+		//   // Cleanup the modal when we're done with it!
+		//   $scope.$on('$destroy', function() {
+		//     $scope.modal.remove();
+		//   });
+		//   // Execute action on hide modal
+		//   $scope.$on('modal.hidden', function() {
+		//     // Execute action
+		//   });
+		//   // Execute action on remove modal
+		//   $scope.$on('modal.removed', function() {
+		//     // Execute action
+		//   });
 	});
 
 	app.controller('FinalizarCotizacionCtrl', function($http, $scope, $state, $stateParams, item_producto, $ionicHistory, $ionicLoading, $ionicPopup, $window){
@@ -67,10 +85,7 @@
 				    	});
 				}else{
 					$ionicLoading.hide();
-					var alertPopup = $ionicPopup.alert({
-			            title: parseInt(window.localStorage.getItem("item_activo")),
-			        });
-					// $state.go('eventmenu.cotizar');
+					$state.go('eventmenu.cotizar');
 				}
 
 			}, function(err){
@@ -80,10 +95,6 @@
 		        });
 				console.log(err);
 			});
-
-
-		// console.log($stateParams.id);
-		// item_producto.clear();
 
 		$scope.finalizar = function(btn){
 

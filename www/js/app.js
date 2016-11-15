@@ -1,6 +1,6 @@
 (function(){
 
-  var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.routing', 'starter.controller', 'starter.services']);
+  var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.routing', 'starter.cotizar_controller', 'starter.base_controller', 'starter.ajustes_controller', 'starter.services']);
 
   app.run(function($ionicPlatform, $rootScope, $state, $cordovaSQLite, $ionicLoading, item_producto, $ionicPopup, $window) {
 

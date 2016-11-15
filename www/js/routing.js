@@ -35,7 +35,7 @@
 		    });
 		    // cotizar nuevo
 		    sp.state('eventmenu.cotizarNuevo', {
-		    	url: '/cotizar-nuevo',
+		    	url: '/cotizar/nuevo',
 		    	cache: false,
 		    	views: {
 		    		'menuContent': {
@@ -81,16 +81,39 @@
 		    			controller: 'FinalizarCotizacionCtrl'
 		    		}
 		    	},
-		  //   	params: {
+		  		// params: {
 				//     id: null
 				// }
 		    });
+
+		    sp.state('eventmenu.enviarProductos', {
+		    	url: '/cotizar/enviar/productos',
+		    	cache: false,
+		    	views: {
+		    		'menuContent': {
+		    			templateUrl: 'templates/cotizar/enviar_productos.html',
+			          	controller: 'EnviarProductosCtrl'
+		    		}
+		    	}
+		    });
 		    // FIN COTIZAR
+		    // INICIO AJUSTES
+		    sp.state('eventmenu.ajustes', {
+		    	url: '/ajustes',
+		    	cache: false,
+		    	views: {
+		    		'menuContent': {
+		    			templateUrl: 'templates/ajustes/ajustes.html'
+		    		}
+		    	}
+		    });
+		    // FIN AJUSTES
 		    // MENU LATERAL IZQUIERDO
 			sp.state('eventmenu', {
 		    	url: '/event',
 	      		abstract: true,
-	      		templateUrl: 'templates/menu.html'
+	      		templateUrl: 'templates/menu.html',
+	      		controller: 'AjustesCtrl'
 	    	});
 
 		$urlRouterProvider.otherwise('/ingreso');
