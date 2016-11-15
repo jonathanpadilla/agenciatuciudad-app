@@ -8,13 +8,12 @@
 
 		$scope.login = function()
 		{
-			
+			window.localStorage.setItem( 'item_activo', 0 );
 			$state.go('eventmenu.inicio');
 		}
 	});
 
 	app.controller('InicioCtrl', function(){
-		
 	});
 
 	// cotizar
@@ -29,6 +28,11 @@
 				console.log(err);
 			});
 
+		$scope.limpiar = function()
+		{
+			item_producto.clear();
+		}
+
 		$ionicHistory.clearHistory();
 	});
 
@@ -36,7 +40,7 @@
 
 	});
 
-	app.controller('FinalizarCotizacionCtrl', function($http, $scope, $state, $stateParams, item_producto, $ionicHistory, $ionicLoading, $ionicPopup){
+	app.controller('FinalizarCotizacionCtrl', function($http, $scope, $state, $stateParams, item_producto, $ionicHistory, $ionicLoading, $ionicPopup, $window){
 
 		$ionicLoading.show({
           	template: '<p>Cargando...</p><ion-spinner></ion-spinner>'
@@ -63,7 +67,10 @@
 				    	});
 				}else{
 					$ionicLoading.hide();
-					$state.go('eventmenu.cotizar');
+					var alertPopup = $ionicPopup.alert({
+			            title: parseInt(window.localStorage.getItem("item_activo")),
+			        });
+					// $state.go('eventmenu.cotizar');
 				}
 
 			}, function(err){
@@ -84,7 +91,7 @@
 	          	template: '<p>Cargando...</p><ion-spinner></ion-spinner>'
 	        });
 
-			var pedido = localStorage.getItem("item_activo");
+			var pedido = window.localStorage.getItem("item_activo");
 
 			item_producto.finalizar(pedido).then(
 				function(rs){
@@ -111,7 +118,7 @@
 				});
 
 		};
-		
+
 	});
 
 }());

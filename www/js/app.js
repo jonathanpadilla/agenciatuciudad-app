@@ -2,7 +2,7 @@
 
   var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.routing', 'starter.controller', 'starter.services']);
 
-  app.run(function($ionicPlatform, $rootScope, $state, $cordovaSQLite, $ionicLoading, item_producto) {
+  app.run(function($ionicPlatform, $rootScope, $state, $cordovaSQLite, $ionicLoading, item_producto, $ionicPopup, $window) {
 
     $ionicPlatform.ready(function() {
 
@@ -27,7 +27,7 @@
         // nueva cotizacion
         if(nuevo)
         {
-          if(localStorage.getItem("item_activo") == 0)
+          if(window.localStorage.getItem("item_activo") == 0)
           {
             item_producto.getLast().then(
               function(rs){
@@ -36,7 +36,6 @@
                   var last_c = parseInt(rs.rows.item(0).pedido);
                   var new_c = last_c + 1;
                   window.localStorage.setItem( 'item_activo', new_c );
-                  // console.log(rs.rows.item(0).pedido);
                 }else{
                   window.localStorage.setItem( 'item_activo', 1 );
                   console.log('Sin registros');
@@ -47,7 +46,7 @@
               });
           }else{
             console.log('sumar 1 a item activo');
-            var last_c = parseInt(localStorage.getItem("item_activo"));
+            var last_c = parseInt(window.localStorage.getItem("item_activo"));
             var new_c = last_c + 1;
             window.localStorage.setItem( 'item_activo', new_c );
           }
@@ -56,7 +55,7 @@
         // validar si existe item
         item_producto.getByNivel(nivel).then(
           function(rs){
-            
+
             if(rs.rows.length)
             {
               // actualizar item
@@ -70,11 +69,17 @@
                   }else{
                     $ionicLoading.hide();
                     console.log('Item no actualizado');
+                    var alertPopup = $ionicPopup.alert({
+                      title: 'Información no actualizada.',
+                    });
                   }
 
                 }, function(err){
 
                   $ionicLoading.hide();
+                  var alertPopup = $ionicPopup.alert({
+                    title: 'Error al actualizar información.',
+                  });
                   console.log(err);
                 }
               );
@@ -89,9 +94,15 @@
                   }else{
                     $ionicLoading.hide();
                     console.log('Item no guardado');
+                    var alertPopup = $ionicPopup.alert({
+                      title: 'Información no guardada.',
+                    });
                   }
                 }, function(err){
                   $ionicLoading.hide();
+                  var alertPopup = $ionicPopup.alert({
+                    title: 'Error al guardar información.',
+                  });
                   console.log(err);
                 }
               );

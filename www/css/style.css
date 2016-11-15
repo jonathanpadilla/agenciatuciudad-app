@@ -1,4 +1,20 @@
 /* Empty. Add your own CSS if you like */
+.button.button-positive {
+    border-color: transparent;
+    background-color: #fff;
+    color: #494949;
+    border: 1px solid #9E9E9E;
+}
+
+.button.button-positive:hover{
+    color: #000;
+    border: 1px solid #000;
+}
+
+.button.button-positive.activated{
+    background-color:#fff !important;
+}
+
 .button-tuciudad{
     background-color: #B71C1C;
     color:#fff;

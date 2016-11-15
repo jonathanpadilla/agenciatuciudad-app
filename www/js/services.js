@@ -2,28 +2,28 @@
 
 	var app = angular.module('starter.services', ['ionic', 'ngCordova']);
 
-	app.factory('item_producto', function($cordovaSQLite, $rootScope){
+	app.factory('item_producto', function($cordovaSQLite, $rootScope, $window){
 
 		return {
 			set: function(producto, nivel, item, comentario)
 			{
-				var pedido = parseInt(localStorage.getItem("item_activo"));
+				var pedido = parseInt(window.localStorage.getItem("item_activo"));
 
       			var query = "INSERT INTO item_producto (pedido, producto, nivel, item, finalizado, comentario) VALUES (?, ?, ?, ?, ?, ?)";
                 return $cordovaSQLite.execute($rootScope.db, query, [pedido, producto, nivel, item, 0, comentario]);
 			},
 			getByNivel: function(nivel)
 			{
-				var pedido = parseInt(localStorage.getItem("item_activo"));
+				var pedido = parseInt(window.localStorage.getItem("item_activo"));
 
 				var query = "SELECT * FROM item_producto WHERE nivel = ? AND pedido = ?";
                 return $cordovaSQLite.execute($rootScope.db, query, [nivel, pedido]);
 			},
 			getByPedido: function()
 			{
-				var pedido = parseInt(localStorage.getItem("item_activo"));
+				var pedido = parseInt(window.localStorage.getItem("item_activo"));
 
-				var query = "SELECT * FROM item_producto WHERE pedido = ?";
+				var query = "SELECT id, pedido, producto, nivel, item, finalizado, comentario FROM item_producto WHERE pedido = ?";
                 return $cordovaSQLite.execute($rootScope.db, query, [pedido]);
 			},
 			getLast: function()
