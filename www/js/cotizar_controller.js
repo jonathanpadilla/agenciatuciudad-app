@@ -95,6 +95,7 @@
 		// formulario
 		$scope.form = {
 			nombre: '',
+			organizacion: '',
 			correo: '',
 			telefono: '',
 			observacion: ''
