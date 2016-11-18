@@ -17,19 +17,28 @@
 		$ionicHistory.clearHistory();
 	});
 
-	app.controller('CotizarNuevoCtrl', function(){
+	app.controller('CotizarNuevoCtrl', function($scope){
 
+		// var lista_json = {"1":{"nombre":"Letrero","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(1)","sub":{"1":{"nombre":"Backlight","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(1)","sub":{"4":{"nombre":"Con caja","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(4)","sub":{"6":{"nombre":"Con luz","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(6)"},"7":{"nombre":"Sin luz","imagen":"placeholder.png","visible":false,"valor":0,"next":"seleccionarItem(7)"}}},"5":{"nombre":"Sin caja","imagen":"placeholder.png","visible":false,"valor":0,"next":"seleccionarItem(5)"}}},"2":{"nombre":"Pendon","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(2)"},"3":{"nombre":"Acrilico","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(3)"}}},"2":{"nombre":"P\u00e1ginas web","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(2)"},"3":{"nombre":"Papeleria","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(3)"},"4":{"nombre":"Intranet","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(4)"},"5":{"nombre":"Branding","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(5)"},"6":{"nombre":"Campa\u00f1as","imagen":"placeholder.png","visible":true,"valor":0,"next":"seleccionarItem(6)"}};
+
+		// // console.log(lista_json);
+
+		// // var buscar = lista_json;
+		// // console.log(buscar[1].sub[1].sub[4].sub);
+
+		// $scope.productos = lista_json;
+
+		// $scope.seleccionarItem = function(id)
+		// {
+		// 	// console.log(x);
+		// 	$scope.productos = $scope.productos[id].sub;
+		// }
 	});
 
-	app.controller('EnviarProductosCtrl', function($scope, $http, $ionicLoading, $ionicPopup, $ionicModal){
-		// $ionicLoading.show({
-  //         	template: '<p>Cargando...</p><ion-spinner></ion-spinner>'
-  //       });
-
-		// var alertPopup = $ionicPopup.alert({
-  //           title: 'Error interno, intente nuevamente.',
-  //       });
-  //       $ionicLoading.hide();
+	app.controller('EnviarProductosCtrl', function($scope, $state, $http, $ionicLoading, $ionicPopup, $ionicModal, item_producto){
+		$ionicLoading.show({
+          	template: '<p>Cargando...</p><ion-spinner></ion-spinner>'
+        });
 
   		$ionicModal.fromTemplateUrl('formulario', {
 		    scope: $scope,
@@ -38,24 +47,89 @@
 		    $scope.modal = modal;
 		});
 
-		// $scope.openModal = function() {
-		//     $scope.modal.show();
-		//   };
-		//   $scope.closeModal = function() {
-		//     $scope.modal.hide();
-		//   };
-		//   // Cleanup the modal when we're done with it!
-		//   $scope.$on('$destroy', function() {
-		//     $scope.modal.remove();
-		//   });
-		//   // Execute action on hide modal
-		//   $scope.$on('modal.hidden', function() {
-		//     // Execute action
-		//   });
-		//   // Execute action on remove modal
-		//   $scope.$on('modal.removed', function() {
-		//     // Execute action
-		//   });
+		item_producto.getAll().then(
+			function(rs){
+
+				if(rs.rows.length > 0)
+				{
+					var results = [];
+					for(var i=0; i<rs.rows.length; i++){
+				        results.push(rs.rows.item(i));
+				    }
+
+				    $http.post(path+'cotizacion/informacion-producto-total/', {producto: results }).then(
+				    	function(cn){
+				    		$scope.productos = cn.data.result;
+				    		$scope.valor_total = cn.data.total;
+				    		$ionicLoading.hide();
+				    		console.log(cn.data.result);
+				    	}, function(err){
+				    		$ionicLoading.hide();
+				    		var alertPopup = $ionicPopup.alert({
+					            title: 'Error de servidor.',
+					        });
+				    		console.log(err);
+				    	});
+				}
+
+			}, function(err){
+				$ionicLoading.hide();
+				var alertPopup = $ionicPopup.alert({
+		            title: 'Error interno.',
+		        });
+				console.log(err);
+			});        
+
+		$scope.eliminar = function(pedido)
+		{
+			console.log(pedido);
+			item_producto.cancelProducto(pedido).then(
+				function(rs){
+					$state.reload(true);
+					console.log(rs);
+				}, function(err){
+					console.log(err)
+				});
+		}
+
+		// formulario
+		$scope.form = {
+			nombre: '',
+			correo: '',
+			telefono: '',
+			observacion: ''
+		};
+
+		$scope.enviarCotizacion = function()
+		{
+			$ionicLoading.show({
+	          	template: '<p>Enviando...</p><ion-spinner></ion-spinner>'
+	        });
+
+			var cotizacion = {
+				form: $scope.form,
+				productos: $scope.productos
+			}
+
+			if(cotizacion.form.nombre != '' && cotizacion.form.correo != '' && cotizacion.form.telefono != '' && cotizacion.form.observacion != '')
+			{
+				$http.post(path+'cotizacion/enviar/', {cotizacion: cotizacion }).then(
+			    	function(cn){
+			    		$ionicLoading.hide();
+			    		console.log(cn);
+			    	}, function(err){
+			    		$ionicLoading.hide();
+			    		var alertPopup = $ionicPopup.alert({
+				            title: 'Error de servidor.',
+				        });
+			    		console.log(err);
+			    	});
+
+			}else{
+				$ionicLoading.hide();
+				console.log('falta información');
+			}
+		}
 	});
 
 	app.controller('FinalizarCotizacionCtrl', function($http, $scope, $state, $stateParams, item_producto, $ionicHistory, $ionicLoading, $ionicPopup, $window){

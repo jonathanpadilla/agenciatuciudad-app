@@ -1,3 +1,24 @@
+.valor-item{
+    float:right;
+    color: #aaa !important;
+    font-weight: bold;
+}
+
+.lista_productos{
+    width: 100%;
+}
+
+.button-eliminar-item{
+    float:right;
+    background-color: #fff;
+    border:0;
+    color: #808080;
+}
+
+.lista_productos .item_producto{
+    width: 50%;
+    float:left;
+}
 /* Empty. Add your own CSS if you like */
 .button.button-positive {
     border-color: transparent;

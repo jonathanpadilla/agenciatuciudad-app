@@ -36,10 +36,20 @@
 				var query = "SELECT * FROM item_producto WHERE finalizado = ? GROUP BY pedido";
                 return $cordovaSQLite.execute($rootScope.db, query, [1]);
 			},
+			getAll: function()
+			{
+				var query = "SELECT * FROM item_producto WHERE finalizado = ? ";
+                return $cordovaSQLite.execute($rootScope.db, query, [1]);
+			},
 			update: function(id, item, comentario)
 			{
 				var query = "UPDATE item_producto SET item = ?, comentario = ? where id = ?";
                 return $cordovaSQLite.execute($rootScope.db, query, [item, comentario, id]);
+			},
+			cancelProducto: function(pedido)
+			{
+				var query = "UPDATE item_producto SET finalizado = ? where pedido = ?";
+                return $cordovaSQLite.execute($rootScope.db, query, [0, pedido]);
 			},
 			finalizar: function(pedido)
 			{

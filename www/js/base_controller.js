@@ -12,7 +12,37 @@
 		}
 	});
 
-	app.controller('InicioCtrl', function(){
+	app.controller('InicioCtrl', function($scope){
+		$scope.lista = {
+			0: {
+				nombre: 'Item1',
+				foto: 'foto1',
+				funcion: 'click(1)'
+			},
+			1: {
+				nombre: 'Item2',
+				foto: 'foto1',
+				funcion: 'click(2)'
+			}
+		}
+
+		$scope.click = function(x)
+		{
+			console.log(x);
+
+			$scope.lista = {
+			0: {
+				nombre: 'Item3',
+				foto: 'foto1',
+				funcion: 'click(1)'
+			},
+			1: {
+				nombre: 'Item4',
+				foto: 'foto1',
+				funcion: 'click(2)'
+			}
+		}
+		}
 	});
 
 }());

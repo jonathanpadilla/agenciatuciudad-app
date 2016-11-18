@@ -121,7 +121,7 @@
       if (window.cordova){$db = $cordovaSQLite.openDB({ name: "tuciudad.db", location: 1});} //device
       else{$db = window.openDatabase("tuciudad.db", '1', 'base de datos tuciudad', 2 * 1024 * 1024);} // browser
 
-      var query = "CREATE TABLE item_producto("
+      var query = "CREATE TABLE IF NOT EXISTS item_producto("
                 +"id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 +"pedido INTEGER, "
                 +"producto INTEGER, "

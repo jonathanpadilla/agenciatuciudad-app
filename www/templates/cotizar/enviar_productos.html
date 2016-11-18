@@ -1,5 +1,11 @@
 <ion-view view-title="Enviar cotización">
+	<ion-nav-buttons side="right">
+      <button class="button" ng-click="doSomething()">
+        <i class="icon ion-ios-paper"></i>
+      </button>
+    </ion-nav-buttons>
 	<ion-content>
+
 		<div class="wrapper">
 		  	<div class="row">
 		  		<div class="col">
@@ -8,28 +14,19 @@
 		  				<div class="item">
 						    productos
 						</div>
-					    <div class="item item-thumbnail-left">
+					    <div class="item item-thumbnail-left" ng-repeat="producto in productos">
 					      <img src="img/placeholder.png">
-					      <h2>Letrero</h2>
-					      <p>Backlight, Caja, Luz</p>
-					    </div>
-					    <div class="item item-thumbnail-left">
-					      <img src="img/placeholder.png">
-					      <h2>Letrero</h2>
-					      <p>Backlight, Caja, Luz</p>
-					    </div>
-					    <div class="item item-thumbnail-left">
-					      <img src="img/placeholder.png">
-					      <h2>Página web</h2>
-					      <p>Responsiva, Administrable, 5 Tópicos</p>
+					      <button class="button-eliminar-item" ng-click="eliminar({{ producto.pedido }})"><i class="ion ion-close-round"></i></button>
+					      <h2>{{ producto.nombre }}</h2>
+					      <p><span ng-repeat="item in producto.items">{{ item.nombre }}, </span></p>
+					      <p class="valor-item">$150.000</p>
 					    </div>
 					    <div class="item">
 					      	<strong>Valor aproximado</strong>
 					      	<span class="item-note">
-					      		<strong>$100.000</strong>
+					      		<strong>${{  valor_total }}</strong>
 					    	</span>
 					    </div>
-					    
 					</div>
 
 		  		</div>
@@ -37,9 +34,9 @@
 		</div>
 
     </ion-content>
-    <div class="bar bar-footer bar-tuciudad">
-		  <a class="title" ng-click="modal.show()">Enviar</a>
-		</div>
+    <ion-footer-bar align-title="center" class="bar-tuciudad">
+		<a class="title" ng-click="modal.show()">Enviar</a>
+    </ion-footer-bar>
 </ion-view>
 
 <script id="formulario" type="text/ng-template">
@@ -51,18 +48,18 @@
         <ion-content class="padding">
           <div class="list">
             <label class="item item-input">
-		    	<input type="text" placeholder="Nombre">
+		    	<input type="text" placeholder="Nombre" ng-model="form.nombre">
 		  	</label>
 		  	<label class="item item-input">
-		    	<input type="text" placeholder="Correo">
+		    	<input type="text" placeholder="Correo" ng-model="form.correo">
 		  	</label>
 		  	<label class="item item-input">
-		    	<input type="number" placeholder="telefono">
+		    	<input type="number" placeholder="telefono" ng-model="form.telefono">
 		  	</label>
 		  	<label class="item item-input">
-		    	<textarea placeholder="Observación" rows="10"></textarea>
+		    	<textarea placeholder="Observación" rows="10" ng-model="form.observacion"></textarea>
 		  	</label>
-            <button class="button button-full button-tuciudad">Enviar</button>
+            <button class="button button-full button-tuciudad" ng-click="enviarCotizacion()">Enviar</button>
           </div>
         </ion-content>
       </ion-modal-view>
