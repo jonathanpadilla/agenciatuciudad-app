@@ -70,6 +70,9 @@
 					        });
 				    		console.log(err);
 				    	});
+				}else{
+					$ionicLoading.hide();
+					$state.go('eventmenu.cotizar');
 				}
 
 			}, function(err){
@@ -112,12 +115,45 @@
 				productos: $scope.productos
 			}
 
-			if(cotizacion.form.nombre != '' && cotizacion.form.correo != '' && cotizacion.form.telefono != '' && cotizacion.form.observacion != '')
+			if(cotizacion.form.nombre != '' && cotizacion.form.correo != '' && cotizacion.form.telefono != '')
 			{
 				$http.post(path+'cotizacion/enviar/', {cotizacion: cotizacion }).then(
 			    	function(cn){
-			    		$ionicLoading.hide();
-			    		console.log(cn);
+			    		if(cn.data.result)
+			    		{
+			    			console.log(cn);	
+
+			    			$scope.form = {
+								nombre: '',
+								organizacion: '',
+								correo: '',
+								telefono: '',
+								observacion: ''
+							};
+
+							item_producto.clear().then(
+								function(clear){
+									$ionicLoading.hide();
+									$scope.modal.hide();
+									$state.go('eventmenu.cotizar');
+									// $state.reload(true);
+
+								}, function(err){
+									$ionicLoading.hide();
+									var alertPopup = $ionicPopup.alert({
+							            title: 'Error al limpiar la base de datos.',
+							        });
+									console.log(err)
+								});
+							
+
+			    		}else{
+			    			$ionicLoading.hide();
+			    			var alertPopup = $ionicPopup.alert({
+					            title: 'Error de servidor, informar a soporte.',
+					        });
+			    		}
+
 			    	}, function(err){
 			    		$ionicLoading.hide();
 			    		var alertPopup = $ionicPopup.alert({
@@ -128,6 +164,9 @@
 
 			}else{
 				$ionicLoading.hide();
+				var alertPopup = $ionicPopup.alert({
+		            title: 'Información requerida',
+		        });
 				console.log('falta información');
 			}
 		}
