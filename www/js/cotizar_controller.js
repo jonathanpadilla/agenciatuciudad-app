@@ -178,21 +178,43 @@
           	template: '<p>Cargando...</p><ion-spinner></ion-spinner>'
         });
 
+        $scope.tipo = 1;
+
+        $scope.form = {
+        	alto: 1,
+        	largo: 1,
+        	comentario: ''
+        };
+
+        // this.actualizar_total();
+
+        $scope.actualizar_total = function(){
+        	$scope.total_producto = ($scope.form.alto * $scope.form.largo) * $scope.total;
+        }
+
 		item_producto.getByPedido().then(
 			function(rs){
 
 				if(rs.rows.length > 0)
 				{
 					var results = [];
-					for(var i=0; i<rs.rows.length; i++){
+					for(var i=0;i < rs.rows.length; i++){
 				        results.push(rs.rows.item(i));
 				    }
 
 				    $http.post(path+'cotizacion/informacion-producto/', {producto: results }).then(
 				    	function(cn){
 				    		$scope.informacion = cn.data.result;
+
+				    		$scope.total = 0;
+				    		angular.forEach($scope.informacion, function(value, key){
+				    			$scope.total += value.valor;
+				    		});
+
+				    		$scope.total_producto = ($scope.form.alto * $scope.form.largo) * $scope.total;
+
 				    		$ionicLoading.hide();
-				    		console.log(cn.data.result);
+				    		// console.log(cn.data.result);
 				    	}, function(err){
 				    		$ionicLoading.hide();
 				    		console.log(err);
@@ -218,7 +240,7 @@
 
 			var pedido = window.localStorage.getItem("item_activo");
 
-			item_producto.finalizar(pedido).then(
+			item_producto.finalizar(pedido, $scope.form.comentario, $scope.form.alto, $scope.form.largo).then(
 				function(rs){
 					// limpiar historial
 					$ionicHistory.clearHistory();

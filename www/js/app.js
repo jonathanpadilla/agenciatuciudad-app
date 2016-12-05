@@ -59,7 +59,7 @@
             if(rs.rows.length)
             {
               // actualizar item
-              item_producto.update(rs.rows.item(0).id, item, 'comentario').then(
+              item_producto.update(rs.rows.item(0).id, item, '').then(
                 function(rs){
 
                   if(rs.rowsAffected == 1)
@@ -85,7 +85,7 @@
               );
             }else{
               // guardar item
-              item_producto.set(producto, nivel, item, 'comentario').then(
+              item_producto.set(producto, nivel, item, '').then(
                 function(rs){
                   if(rs.rowsAffected == 1)
                   {
@@ -128,6 +128,8 @@
                 +"nivel INTEGER, "
                 +"item INTEGER, "
                 +"finalizado INTEGER, "
+                +"medida_alto INTEGER, "
+                +"medida_largo INTEGER, "
                 +"comentario TEXT)";
 
       // var query = "DROP TABLE item_producto";

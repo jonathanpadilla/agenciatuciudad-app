@@ -23,7 +23,7 @@
 			{
 				var pedido = parseInt(window.localStorage.getItem("item_activo"));
 
-				var query = "SELECT id, pedido, producto, nivel, item, finalizado, comentario FROM item_producto WHERE pedido = ?";
+				var query = "SELECT * FROM item_producto WHERE pedido = ?";
                 return $cordovaSQLite.execute($rootScope.db, query, [pedido]);
 			},
 			getLast: function()
@@ -51,10 +51,10 @@
 				var query = "UPDATE item_producto SET finalizado = ? where pedido = ?";
                 return $cordovaSQLite.execute($rootScope.db, query, [0, pedido]);
 			},
-			finalizar: function(pedido)
+			finalizar: function(pedido, comentario, alto, largo)
 			{
-				var query = "UPDATE item_producto SET finalizado = ? where pedido = ?";
-                return $cordovaSQLite.execute($rootScope.db, query, [1, pedido]);
+				var query = "UPDATE item_producto SET finalizado = ?, comentario = ?, medida_alto = ?, medida_largo = ? where pedido = ? AND item = ?";
+                return $cordovaSQLite.execute($rootScope.db, query, [1, comentario, alto, largo, pedido, 0]);
 			},
 			clear: function()
 			{

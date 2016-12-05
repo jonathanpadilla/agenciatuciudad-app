@@ -16,9 +16,24 @@
 
 					  		<ul class="list" >
 							    <li class="item" ng-repeat="item in informacion">{{ item.nombre }}</li>
+							    <li class="item">
+							    	<div class="info-extra">
+							    		<div class="content-medidas" ng-if=" tipo == 1 ">
+							    			<div class="input-medida">
+							    				<input type="number" placeholder="Alto" ng-model="form.alto" ng-keyup="actualizar_total()">
+							    			</div>
+							    			<div class="input-medida">
+							    				<input type="number" placeholder="Largo" ng-model="form.largo" ng-keyup="actualizar_total()">
+							    			</div>
+							    		</div>
+							    		<div class="content-comentario">
+							    			<textarea class="width_full" rows="7" placeholder="Observación" ng-model="form.comentario"></textarea>
+							    		</div>
+							    	</div>
+							    </li>
 							    <li class="item"><strong>Valor aproximado</strong>
 							    	<span class="item-note">
-								      	<strong>$100.000</strong>
+								      	<strong>${{ total_producto }}</strong>
 								    </span>
 							    </li>
 							</ul>
